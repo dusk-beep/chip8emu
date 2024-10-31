@@ -13,11 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
+
+    - name: Install SDL2
+      run: sudo apt-get update && sudo apt-get install -y libsdl2-dev
+
+    - name: Build
       run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
