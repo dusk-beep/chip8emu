@@ -22,8 +22,8 @@ typedef struct {
 bool config_sdl(config_t* config) {
 	config->window_width = 64;
 	config->window_height = 32;
-	config->for_color = 0xFFFFFFF;
-	config->back_color = 0x0000000;
+	config->for_color = 0xFFFFFFFF;
+	config->back_color = 0xFF0000FF;
 	return true;
 }
 
@@ -48,14 +48,14 @@ bool init_sdl(sdl_t* sdl,const config_t config) {
 		SDL_Log("could not initialize sdl sub systems : %s ",SDL_GetError());
 		return false;
 	}
-	sdl->window = SDL_CreateWindow("chip8 emu",SDL_WINDOWPOS_CENTERED,                                          SDL_WINDOWPOS_CENTERED,config.window_width,                                 config.window_height,false);
+	sdl->window = SDL_CreateWindow("chip8 emu",SDL_WINDOWPOS_CENTERED,                                          SDL_WINDOWPOS_CENTERED,config.window_width,                                 config.window_height,SDL_WINDOW_SHOWN);
 
 	if(!sdl->window) {
 		SDL_Log("could not craete a window %s ",SDL_GetError());
 		return false;
 	}
 
-	sdl->render = SDL_CreateRenderer(sdl->window, -1,SDL_RENDERER_ACCELERATED);
+	sdl->render = SDL_CreateRenderer(sdl->window, -1,SDL_RENDERER_SOFTWARE);
 
 	if(!sdl->render) {
 		SDL_Log("could not create renderer %s ",SDL_GetError());
@@ -85,13 +85,29 @@ int main(int argc, char *argv[])
 
 	//set the initial screen
 	color_sdl(sdl,config);
-	//main emu loop
-	while(true) {
-    SDL_Delay(16);//delay for 16 millisecinds around 60 fps
-		update_sdl(sdl);
-	}
+  
+  SDL_Event event;
+    // Main emulator loop
+    bool running = true; // Control variable for the loop
+    while (running) {
+        // Handle events
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) { // Check for quit event (window close)
+                running = false; // Set running to false to exit loop
+            }
+            // Check for keyboard events
+            if (event.type == SDL_KEYDOWN) {
+                if (event.key.keysym.sym == SDLK_ESCAPE) { // Check if the Escape key is pressed
+                    running = false; // Set running to false to exit loop
+                }
+            }
+        }
+        SDL_Delay(16); // Delay for ~60 FPS
+        update_sdl(sdl); // Update the screen
+    }
 
-	//stop
+
+
 	cleanup_sdl(&sdl);
 	return 0;
 }
