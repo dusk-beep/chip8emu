@@ -1,2 +1,7 @@
 out
 chip8.c.orig
+build
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake 
+Makefile

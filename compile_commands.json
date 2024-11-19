@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/data/data/com.termux/files/home/learning/chioEmu",
+  "command": "/data/data/com.termux/files/usr/bin/cc  -I/data/data/com.termux/files/usr/include/SDL2 -O2 -g -DNDEBUG -o CMakeFiles/chip8.dir/chip8.c.o -c /data/data/com.termux/files/home/learning/chioEmu/chip8.c",
+  "file": "/data/data/com.termux/files/home/learning/chioEmu/chip8.c",
+  "output": "CMakeFiles/chip8.dir/chip8.c.o"
+}
+]
