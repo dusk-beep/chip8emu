@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
 
 #include "SDL.h"
+#include "SDL_video.h"
 
 typedef struct {
 	SDL_Window* window;
@@ -144,5 +144,4 @@ int main(int argc, char* argv[])
 	cleanup_sdl(&sdl);
 	return 0;
 }
-
 
