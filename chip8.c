@@ -143,5 +143,6 @@ int main(int argc, char* argv[])
 
 	cleanup_sdl(&sdl);
 	return 0;
+ 
 }
 
